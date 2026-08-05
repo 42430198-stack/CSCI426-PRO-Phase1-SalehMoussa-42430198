@@ -131,11 +131,3 @@ npm run deploy
 4. In GitHub repository settings:
 - Open `Settings` -> `Pages`.
 - Set source to `gh-pages` branch (if not auto-selected).
-
-## Screenshots Of The UI
-
-### Home Page
-![Home Page](docs/screenshots/home-page.png)
-
-### Editing Page
-![Editing Page](docs/screenshots/editing-page.png)

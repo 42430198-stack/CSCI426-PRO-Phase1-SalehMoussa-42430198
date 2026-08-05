@@ -8,12 +8,15 @@ app.use(cors());
 app.use(express.json());
 
 const connection = await mysql.createConnection(
-    {
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "waww"
-    }
+    process.env.MYSQL_URL
+        ? process.env.MYSQL_URL
+        : {
+            host: process.env.MYSQLHOST || "localhost",
+            user: process.env.MYSQLUSER || "root",
+            password: process.env.MYSQLPASSWORD || "",
+            database: process.env.MYSQLDATABASE || "waww",
+            port: Number(process.env.MYSQLPORT) || 3306,
+        }
 );
 
 const ensureUserSchema = async () => {
@@ -216,9 +219,9 @@ app.put("/api/books/:id", async (req, res) => {
     }
 });
 
-app.listen (
-    5000,
+app.listen(
+    process.env.PORT || 5000,
     () => {
-        console.log("API running on http://localhost:5000");
+        console.log(`API running on port ${process.env.PORT || 5000}`);
     }
 );

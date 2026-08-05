@@ -1,0 +1,32 @@
+.about-us-page{
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+h1 {
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: underline;
+    color: purple;
+}
+
+p {
+    text-align: center;
+    line-height: 1.6;
+}
+
+h2 {
+    margin-top: 20px;
+    color: blue;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}

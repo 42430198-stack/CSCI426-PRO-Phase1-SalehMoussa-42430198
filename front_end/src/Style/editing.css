@@ -1,0 +1,98 @@
+.editing-page {
+    min-height: 100vh;
+    padding: 40px 5px;
+    margin: 10px;
+}
+
+.editing-actions {
+    margin-bottom: 16px;
+}
+
+.add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: #2e7d32;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.add-button:hover {
+    background-color: #1b5e20;
+}
+
+.editing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.book-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #20272c;
+    color: #fff;
+    border-radius: 15px;
+    padding: 5px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .book-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+.edit-button{
+    width: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: normal;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #1e88e5;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 0;
+    cursor: pointer;
+}
+
+.delete-button{
+    width: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: normal;
+    margin: 15px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #ff0000;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 0;
+    cursor: pointer;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #7b1fa2;
+    transform: translateY(-1px);
+}
+
+.edit-button:focus-visible, .delete-button:focus-visible {
+    outline: 2px solid #7b1fa2;
+    outline-offset: 2px;
+}

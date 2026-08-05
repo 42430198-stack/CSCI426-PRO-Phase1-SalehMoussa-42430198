@@ -1,0 +1,212 @@
+.my-books-page {
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.my-books-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.my-books-section {
+    margin-bottom: 2.5rem;
+}
+
+.my-books-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.4rem;
+}
+
+.count {
+    color: #6b7280;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.my-books-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.my-books-table thead {
+    background: #f3f4f6;
+}
+
+.my-books-table th {
+    text-align: left;
+    padding: 0.65rem 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.my-books-table td {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+.my-books-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.table-book-img {
+    width: 48px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.table-book-link {
+    color: #1d4ed8;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.table-book-link:hover {
+    text-decoration: underline;
+}
+
+.no-rating {
+    color: #9ca3af;
+}
+
+.empty-msg {
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* BookDetails action buttons */
+.book-list-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.want-btn,
+.read-btn,
+.remove-btn {
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.want-btn {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.want-btn:hover { background: #2563eb; }
+
+.read-btn {
+    background: #10b981;
+    color: #fff;
+}
+
+.read-btn:hover { background: #059669; }
+
+.remove-btn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.remove-btn:hover { background: #dc2626; }
+
+.status-badge {
+    background: #f3f4f6;
+    color: #374151;
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.rating-input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.rating-input {
+    width: 130px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+/* BookDetails action buttons */
+.book-list-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.want-btn,
+.read-btn,
+.remove-btn {
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.want-btn {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.want-btn:hover { background: #2563eb; }
+
+.read-btn {
+    background: #10b981;
+    color: #fff;
+}
+
+.read-btn:hover { background: #059669; }
+
+.remove-btn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.remove-btn:hover { background: #dc2626; }
+
+.status-badge {
+    background: #f3f4f6;
+    color: #374151;
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.rating-input-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.rating-input {
+    width: 130px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}

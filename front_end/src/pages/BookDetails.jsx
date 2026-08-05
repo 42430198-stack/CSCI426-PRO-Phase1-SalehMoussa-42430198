@@ -48,12 +48,6 @@ export default function BookDetails({ books, onDeleteBook, userId, userRole }) {
         setShowRatingInput(false);
     };
 
-    const handleDelete = () => {
-        if (!book) return;
-        onDeleteBook(book.id);
-        navigate("/Home");
-    };
-
     if (!book) {
         return (
             <div className="book-details-page">

@@ -3,6 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Style/login.css';
 
+const getApiBaseUrl = () => {
+  const configuredBase = process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_BOOKS_API_URL;
+  if (configuredBase) {
+    return configuredBase.replace(/\/$/, '');
+  }
+
+  return process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api';
+};
+
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -23,8 +32,9 @@ export default function Login({ onLogin }) {
     setError('');
 
     try {
-      const endpoint = isSignUp ? '/api/auth/signup' : '/api/auth/login';
-      const response = await axios.post(`http://localhost:5000${endpoint}`, {
+      const endpoint = isSignUp ? '/auth/signup' : '/auth/login';
+      const apiBaseUrl = getApiBaseUrl();
+      const response = await axios.post(`${apiBaseUrl}${endpoint}`, {
         email: email.trim().toLowerCase(),
         password,
       });

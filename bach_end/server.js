@@ -15,7 +15,7 @@ const connection = await mysql.createConnection(
             user: process.env.MYSQLUSER || "root",
             password: process.env.MYSQLPASSWORD || "",
             database: process.env.MYSQLDATABASE || "waww",
-            port: Number(process.env.MYSQLPORT) || 5000,
+            port: Number(process.env.MYSQLPORT) || 3306,
         }
 );
 
@@ -222,6 +222,6 @@ app.put("/api/books/:id", async (req, res) => {
 app.listen(
     process.env.PORT || 5000,
     () => {
-        console.log(`API running on port http://localhost:${process.env.PORT || 5000}`);
+        console.log(`API running on port http://localhost:${process.env.PORT || 3306}`);
     }
 );

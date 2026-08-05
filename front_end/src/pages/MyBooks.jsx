@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom';
 import StarRating from '../components/Star_Raiting';
 import '../Style/my_books.css';
 
-const API_BASE = process.env.REACT_APP_BOOKS_API_URL
-    ? process.env.REACT_APP_BOOKS_API_URL.replace('/books', '')
-    : 'http://localhost:5000/api';
+const getApiBaseUrl = () => {
+    const configuredBase = process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_BOOKS_API_URL;
+    if (configuredBase) {
+        return configuredBase.replace(/\/$/, '').replace(/\/books$/, '');
+    }
+
+    return process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api';
+};
+
+const API_BASE = getApiBaseUrl();
 
 export default function MyBooks({ userId }) {
     const [entries, setEntries] = useState([]);

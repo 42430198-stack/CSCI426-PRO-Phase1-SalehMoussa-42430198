@@ -10,6 +10,15 @@ import AboutUs from './pages/aboutUS';
 import Login from './pages/Login';
 import MyBooks from './pages/MyBooks';
 
+const getApiBaseUrl = () => {
+  const configuredBase = process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_BOOKS_API_URL;
+  if (configuredBase) {
+    return configuredBase.replace(/\/$/, '');
+  }
+
+  return process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api';
+};
+
 function App() {
   const [books, setBooks] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('isAuthenticated') === 'true');
@@ -81,16 +90,17 @@ function App() {
   });
 
   const loadedBooks = async () => {
-
     const apiCandidates = [
       process.env.REACT_APP_BOOKS_API_URL,
-      '/api/books',
-      'http://localhost:5000/api/books',
+      process.env.REACT_APP_API_BASE_URL,
+      getApiBaseUrl(),
     ].filter(Boolean);
 
     for (const api of apiCandidates) {
+      const normalizedApi = api.endsWith('/books') ? api : `${api.replace(/\/$/, '')}/books`;
+
       try {
-        const response = await axios.get(api);
+        const response = await axios.get(normalizedApi);
         const payload = Array.isArray(response.data)
           ? response.data
           : (Array.isArray(response.data?.books) ? response.data.books : []);
@@ -107,7 +117,7 @@ function App() {
   }, []);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const booksApiUrl = process.env.REACT_APP_BOOKS_API_URL || 'http://localhost:5000/api/books';
+  const booksApiUrl = `${getApiBaseUrl()}/books`;
 
   const handleDeleteBook = async (bookId) => {
     try {

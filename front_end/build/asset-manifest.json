@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/css/main.9f0792f6.css",
-    "main.js": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/js/main.f3e46a66.js",
+    "main.css": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/css/main.cc5b5e74.css",
+    "main.js": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/js/main.b7cfc7e7.js",
     "static/js/453.59ab468c.chunk.js": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/js/453.59ab468c.chunk.js",
     "index.html": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/index.html",
-    "main.9f0792f6.css.map": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/css/main.9f0792f6.css.map",
-    "main.f3e46a66.js.map": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/js/main.f3e46a66.js.map",
+    "main.cc5b5e74.css.map": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/css/main.cc5b5e74.css.map",
+    "main.b7cfc7e7.js.map": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/js/main.b7cfc7e7.js.map",
     "453.59ab468c.chunk.js.map": "/CSCI426_PRO_Phase1_SalehMoussa_42430198/static/js/453.59ab468c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f0792f6.css",
-    "static/js/main.f3e46a66.js"
+    "static/css/main.cc5b5e74.css",
+    "static/js/main.b7cfc7e7.js"
   ]
 }

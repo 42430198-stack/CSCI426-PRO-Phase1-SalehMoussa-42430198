@@ -170,7 +170,7 @@ function App() {
                   <Route path="/" element={isAuthenticated ? <Navigate to="/Home" replace /> : <Login onLogin={handleLogin} />} />
                   <Route path="/login" element={isAuthenticated ? <Navigate to="/Home" replace /> : <Login onLogin={handleLogin} />} />
                   <Route path="/Home" element={isAuthenticated ? <Home books={books} searchTerm={searchTerm} /> : <Navigate to="/login" replace />} />
-                  <Route path="/book/:bookId" element={isAuthenticated ? <BookDetails books={books} onDeleteBook={handleDeleteBook} userId={userId} userRole={userRole} /> : <Navigate to="/login" replace />} />
+                  <Route path="/book/:bookId" element={isAuthenticated ? <BookDetails books={books} userId={userId} userRole={userRole} /> : <Navigate to="/login" replace />} />
                   <Route path="/mybooks" element={isAuthenticated && userRole !== 'admin' ? <MyBooks userId={userId} /> : <Navigate to="/Home" replace />} />
                   <Route path="/editing" element={isAuthenticated ? (userRole === 'admin' ? <Editing books={books} onDeleteBook={handleDeleteBook} onUpdateBook={handleUpdateBook} onAddBook={handleAddBook} searchTerm={searchTerm} /> : <Navigate to="/Home" replace />) : <Navigate to="/login" replace />} />
                   <Route path="/editing/:bookId" element={isAuthenticated ? (userRole === 'admin' ? <Editing books={books} onDeleteBook={handleDeleteBook} onUpdateBook={handleUpdateBook} onAddBook={handleAddBook} searchTerm={searchTerm} /> : <Navigate to="/Home" replace />) : <Navigate to="/login" replace />} />

@@ -70,6 +70,24 @@ npm start
 
 > Make sure MySQL is running and a database named `waww` exists before starting the backend. The server auto-creates the required tables on startup.
 
+## Screenshots
+
+### Login Page
+![Login Page](front_end/docs/screenshots/login-page.png)
+
+### Home Page
+![Home Page](front_end/docs/screenshots/home-page.png)
+
+### Book Details Page
+![Book Details Page](front_end/docs/screenshots/book-details-page.png)
+
+### My Books Page
+![My Books Page](front_end/docs/screenshots/my-books-page.png)
+
+### About Page
+![About Page](front_end/docs/screenshots/about-page.png)
+
+
 ## Git Version Control And Commit History
 This project uses Git.
 

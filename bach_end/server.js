@@ -222,6 +222,6 @@ app.put("/api/books/:id", async (req, res) => {
 app.listen(
     process.env.PORT || 5000,
     () => {
-        console.log(`API running on port http://localhost:${process.env.PORT || 3306}`);
+        console.log(`API running on port http://localhost:${process.env.PORT || 5000}`);
     }
 );

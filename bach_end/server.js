@@ -112,6 +112,28 @@ const ensureUserBooksSchema = async () => {
 
 await ensureUserBooksSchema();
 
+const ensureBooksSchema = async () => {
+    try {
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS books (
+                id INT NOT NULL AUTO_INCREMENT,
+                name VARCHAR(255) NOT NULL,
+                image TEXT,
+                publisher VARCHAR(255),
+                publish_date VARCHAR(100),
+                goodreads_rating DECIMAL(3,2) DEFAULT NULL,
+                genres JSON,
+                back_cover_story TEXT,
+                PRIMARY KEY (id)
+            )
+        `);
+    } catch (error) {
+        console.error("Unable to ensure books table:", error);
+    }
+};
+
+await ensureBooksSchema();
+
 app.get(
     "/api/books",
     async (req, res) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "../Style/book_details.css";
 import StarRating from "../components/Star_Raiting";
@@ -17,7 +17,6 @@ const API_BASE = getApiBaseUrl();
 
 export default function BookDetails({ books, onDeleteBook, userId, userRole }) {
     const { bookId } = useParams();
-    const navigate = useNavigate();
     const book = books.find((item) => String(item.id) === bookId);
 
     const [userEntry, setUserEntry] = useState(null);

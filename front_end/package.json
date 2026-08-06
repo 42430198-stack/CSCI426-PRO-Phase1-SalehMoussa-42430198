@@ -1,7 +1,6 @@
 {
   "name": "front_end",
   "version": "0.1.0",
-  "homepage": "https://42430198-stack.io/CSCI426_PRO_Phase1_SalehMoussa_42430198",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",

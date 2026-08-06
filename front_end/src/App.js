@@ -19,6 +19,67 @@ const getApiBaseUrl = () => {
   return process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api' : '/api';
 };
 
+const normalizeGenres = (genresValue) => {
+  const cleanGenres = (items) => {
+    const normalized = items
+      .map((item) => {
+        if (typeof item === 'string') {
+          return item.trim();
+        }
+
+        if (item && typeof item === 'object') {
+          if (typeof item.name === 'string') {
+            return item.name.trim();
+          }
+          if (typeof item.genre === 'string') {
+            return item.genre.trim();
+          }
+        }
+
+        return '';
+      })
+      .filter(Boolean);
+
+    return Array.from(new Set(normalized));
+  };
+
+  if (Array.isArray(genresValue)) {
+    return cleanGenres(genresValue);
+  }
+
+  if (typeof genresValue === 'string') {
+    const trimmed = genresValue.trim();
+
+    if (!trimmed) {
+      return [];
+    }
+
+    if (trimmed.startsWith('[')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) {
+          return cleanGenres(parsed);
+        }
+      } catch (error) {
+        return [];
+      }
+    }
+
+    if (trimmed.includes(',')) {
+      return cleanGenres(trimmed.split(','));
+    }
+
+    return [trimmed];
+  }
+
+  return [];
+};
+
+const normalizeBook = (book) => ({
+  ...book,
+  genres: normalizeGenres(book?.genres),
+});
+
 function App() {
   const [books, setBooks] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(() => sessionStorage.getItem('isAuthenticated') === 'true');
@@ -28,92 +89,31 @@ function App() {
     return stored ? Number(stored) : null;
   });
 
-  const normalizeGenres = (genresValue) => {
-    const cleanGenres = (items) => {
-      const normalized = items
-        .map((item) => {
-          if (typeof item === 'string') {
-            return item.trim();
-          }
+  useEffect(() => {
+    const loadBooks = async () => {
+      const apiCandidates = [
+        process.env.REACT_APP_BOOKS_API_URL,
+        process.env.REACT_APP_API_BASE_URL,
+        getApiBaseUrl(),
+      ].filter(Boolean);
 
-          if (item && typeof item === 'object') {
-            if (typeof item.name === 'string') {
-              return item.name.trim();
-            }
-            if (typeof item.genre === 'string') {
-              return item.genre.trim();
-            }
-          }
+      for (const api of apiCandidates) {
+        const normalizedApi = api.endsWith('/books') ? api : `${api.replace(/\/$/, '')}/books`;
 
-          return '';
-        })
-        .filter(Boolean);
-
-      return Array.from(new Set(normalized));
-    };
-
-    if (Array.isArray(genresValue)) {
-      return cleanGenres(genresValue);
-    }
-
-    if (typeof genresValue === 'string') {
-      const trimmed = genresValue.trim();
-
-      if (!trimmed) {
-        return [];
-      }
-
-      if (trimmed.startsWith('[')) {
         try {
-          const parsed = JSON.parse(trimmed);
-          if (Array.isArray(parsed)) {
-            return cleanGenres(parsed);
-          }
+          const response = await axios.get(normalizedApi);
+          const payload = Array.isArray(response.data)
+            ? response.data
+            : (Array.isArray(response.data?.books) ? response.data.books : []);
+
+          setBooks(payload.map(normalizeBook));
+          return;
         } catch (error) {
-          return [];
         }
       }
+    };
 
-      if (trimmed.includes(',')) {
-        return cleanGenres(trimmed.split(','));
-      }
-
-      return [trimmed];
-    }
-
-    return [];
-  };
-
-  const normalizeBook = (book) => ({
-    ...book,
-    genres: normalizeGenres(book?.genres),
-  });
-
-  const loadedBooks = async () => {
-    const apiCandidates = [
-      process.env.REACT_APP_BOOKS_API_URL,
-      process.env.REACT_APP_API_BASE_URL,
-      getApiBaseUrl(),
-    ].filter(Boolean);
-
-    for (const api of apiCandidates) {
-      const normalizedApi = api.endsWith('/books') ? api : `${api.replace(/\/$/, '')}/books`;
-
-      try {
-        const response = await axios.get(normalizedApi);
-        const payload = Array.isArray(response.data)
-          ? response.data
-          : (Array.isArray(response.data?.books) ? response.data.books : []);
-
-        setBooks(payload.map(normalizeBook));
-        return;
-      } catch (error) {
-      }
-    }
-  };
-
-  useEffect(() => {
-    loadedBooks();
+    loadBooks();
   }, []);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -169,7 +169,7 @@ function App() {
     setUserId(null);
   };
 
-  const routerBasename = process.env.PUBLIC_URL || '/CSCI426_PRO_Phase1_SalehMoussa_42430198';
+  const routerBasename = process.env.PUBLIC_URL || '';
 
   return (
    <BrowserRouter basename={routerBasename}>

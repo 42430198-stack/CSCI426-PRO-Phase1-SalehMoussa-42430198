@@ -7,20 +7,82 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const connection = await mysql.createConnection(
-    process.env.MYSQL_URL
-        ? process.env.MYSQL_URL
-        : {
-            host: process.env.MYSQLHOST || "localhost",
-            user: process.env.MYSQLUSER || "root",
-            password: process.env.MYSQLPASSWORD || "",
-            database: process.env.MYSQLDATABASE || "waww",
-            port: Number(process.env.MYSQLPORT) || 3306,
+const getDbConfig = () => {
+    const connectionUrl = process.env.MYSQL_URL || process.env.DATABASE_URL;
+    if (connectionUrl) {
+        return connectionUrl;
+    }
+
+    const hasAnyExplicitMysqlVar = Boolean(
+        process.env.MYSQLHOST ||
+        process.env.MYSQLUSER ||
+        process.env.MYSQLPASSWORD ||
+        process.env.MYSQLDATABASE ||
+        process.env.MYSQLPORT
+    );
+
+    if (!hasAnyExplicitMysqlVar) {
+        if (process.env.NODE_ENV === "production") {
+            throw new Error(
+                "Missing database configuration in production. Set MYSQL_URL or MYSQLHOST/MYSQLUSER/MYSQLPASSWORD/MYSQLDATABASE/MYSQLPORT in Railway Variables."
+            );
         }
-);
+
+        return {
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "waww",
+            port: 3306,
+        };
+    }
+
+    const missingFields = ["MYSQLHOST", "MYSQLUSER", "MYSQLDATABASE"].filter(
+        (name) => !process.env[name]
+    );
+
+    if (missingFields.length > 0) {
+        throw new Error(
+            `Incomplete MySQL configuration. Missing: ${missingFields.join(", ")}.`
+        );
+    }
+
+    return {
+        host: process.env.MYSQLHOST,
+        user: process.env.MYSQLUSER,
+        password: process.env.MYSQLPASSWORD || "",
+        database: process.env.MYSQLDATABASE,
+        port: Number(process.env.MYSQLPORT) || 3306,
+    };
+};
+
+let connection;
+try {
+    connection = await mysql.createConnection(getDbConfig());
+} catch (error) {
+    console.error("Database connection failed.", {
+        message: error.message,
+        hasMysqlUrl: Boolean(process.env.MYSQL_URL || process.env.DATABASE_URL),
+        mysqlHost: process.env.MYSQLHOST || null,
+        mysqlDatabase: process.env.MYSQLDATABASE || null,
+        mysqlPort: process.env.MYSQLPORT || null,
+        nodeEnv: process.env.NODE_ENV || null,
+    });
+    throw error;
+}
 
 const ensureUserSchema = async () => {
     try {
+        await connection.execute(`
+            CREATE TABLE IF NOT EXISTS users (
+                id INT NOT NULL AUTO_INCREMENT,
+                email VARCHAR(255) NOT NULL UNIQUE,
+                password VARCHAR(255) NOT NULL,
+                role VARCHAR(50) NOT NULL DEFAULT 'user',
+                PRIMARY KEY (id)
+            )
+        `);
+
         const [columns] = await connection.execute("SHOW COLUMNS FROM users LIKE 'role'");
         if (columns.length === 0) {
             await connection.execute("ALTER TABLE users ADD COLUMN role VARCHAR(50) NOT NULL DEFAULT 'user'");

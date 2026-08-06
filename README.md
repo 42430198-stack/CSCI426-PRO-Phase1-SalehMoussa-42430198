@@ -1,4 +1,4 @@
-# CSCI426 – Library App (Phase 1)
+# CSCI426-PRO-SalehMoussa-42430198
 **Student:** Saleh Moussa &nbsp;|&nbsp; **ID:** 42430198
 
 ## Project Description
@@ -106,28 +106,64 @@ git commit -m "Your commit message"
 git push origin master
 ```
 
-## Frontend Hosting (GitHub Pages)
-The project is configured for GitHub Pages deployment.
+## Deployment
 
-1. In `package.json`, set this field to your real repository path:
+### Frontend on GitHub Pages
 
-```json
-"homepage": "https://<your-github-username>.github.io/<your-repo-name>"
-```
-
-2. Ensure your project has a GitHub remote and push your code:
-
+1. Install dependencies:
 ```bash
-git remote add origin https://github.com/<your-github-username>/<your-repo-name>.git
-git push -u origin master
+cd front_end
+npm install
 ```
 
-3. Deploy:
-
+2. Build and publish to GitHub Pages:
 ```bash
 npm run deploy
 ```
 
-4. In GitHub repository settings:
-- Open `Settings` -> `Pages`.
-- Set source to `gh-pages` branch (if not auto-selected).
+3. In GitHub repository settings:
+- Open **Settings** -> **Pages**
+- Set source to branch `gh-pages` (if not selected automatically)
+
+4. Frontend URL format:
+```text
+https://<your-github-username>.github.io/CSCI426-PRO-SalehMoussa-42430198/
+```
+
+### Backend on Render
+
+1. Push the full project to GitHub:
+```bash
+git add .
+git commit -m "Prepare GitHub Pages frontend and Render backend deployment"
+git push origin master
+```
+
+2. In Render:
+- Click **New** -> **Web Service**
+- Connect your GitHub repository
+- Root directory: `bach_end`
+- Build command: `npm install`
+- Start command: `npm start`
+
+3. Add environment variables in Render service:
+- `MYSQL_URL` (recommended single connection string)
+    - or set all of: `MYSQLHOST`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE`, `MYSQLPORT`
+- `PORT` is provided by Render automatically
+
+4. After deployment, test backend:
+```text
+https://<your-render-service>.onrender.com/api/books
+```
+
+### Connect Frontend to Render Backend
+
+Before building GitHub Pages, set API base URL:
+
+Windows PowerShell:
+```powershell
+$env:REACT_APP_API_BASE_URL="https://<your-render-service>.onrender.com/api"
+npm run deploy
+```
+
+This ensures the frontend calls your Render backend instead of local `/api` routes.

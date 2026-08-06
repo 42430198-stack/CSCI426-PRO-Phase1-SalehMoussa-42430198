@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: csci426-books-api
+    env: node
+    rootDir: bach_end
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/books
+    envVars:
+      - key: MYSQL_URL
+        sync: false
